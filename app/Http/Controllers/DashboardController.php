@@ -7,6 +7,7 @@ use App\Rasio;
 use App\CustomClass\calculator;
 use App\CustomClass\rasiocal;
 use App\Data;
+use DateTime;
 
 class DashboardController extends Controller
 {
@@ -359,6 +360,84 @@ class DashboardController extends Controller
 
 
          echo $new;
+
+
+    }
+
+
+
+    public function editdata(Request $request)
+    {
+        $html = '';
+
+            $data = Data::find(18);
+            $html .= '<div class="form-group">
+            <label for="exampleInputEmail1">Perusahaan</label>
+            <input type="text" id="perusahaanedit" name="perusahaanedit" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="'.$data->perusahaan.'">
+          </div>
+          <div class="form-group">
+          <label for="exampleInputPassword1">Rasio</label>
+          <select class="custom-select my-1 mr-sm-2" id="tahun" name="tahun">
+              <option value="Tahun">Tahun</option>
+              <option value="Rasio Solvabilitas">'.$data->rasio.'</option>
+            </select>
+      </div>
+      <div class="form-group">
+              <label for="exampleInputPassword1">Tipe Rasio</label>
+              <select class="custom-select my-1 mr-sm-2" id="tahun" name="tahun">
+              <option value="Tahun">Tahun</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+            </select>
+          </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Hasil</label>
+              <input type="text" id="hasiledit" name="hasiledit" class="form-control" id="exampleInputPassword1" value="'.$data->hasil.'" >
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" name="saveadd" class="btn btn-primary" id="saveadd">Save changes</button>';
+
+        echo $html;
+    }
+
+    public function tanggal()
+    {
+        return view('date');
+    }
+
+    public function postanggal(Request $request)
+    {
+        $date1 = $request->get('tanggal');
+
+        $ts1 = strtotime($date1);
+        $year1 = date('Y', $ts1);
+        $year2 = date('Y');
+        $month1 = date('m', $ts1);
+        $month2 = date('m');
+        $diff = (($year1 - $year2) * 12) + ($month1 - $month2);
+        // $data = new DateTime($data);
+        $date1 = new DateTime($date1);
+        $data2 = new DateTime(Date('Y-m-d'));
+        $tahun =$data2->diff($date1)->y;
+
+        $hitung = new rasiocal;
+        $tipe = $request->get('hitung');
+
+        // $pangkat = pow(1.055, $tahun);
+        // $bagi = $request->get('future') / $pangkat;
+        // $result = $bagi / $bulan;
+        //   dd(pow(1.075,$tahun));
+
+
+        if($tipe){
+            $result = $hitung->hitungfv($tahun,$request->get('future'),$diff, $tipe);
+            echo $result;
+        }
+
+
 
 
     }

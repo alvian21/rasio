@@ -16,6 +16,8 @@ class rasiocal
             case 'Utang Terhadap Ekuitas':
             case 'Cakupan Bunga':
             case 'Rasio Lancar':
+            case 'Rasio Kas':
+            case 'Rasio Kas atas Hutang Lancar':
             return $this->a / $this->b;
             break;
 
@@ -38,6 +40,29 @@ class rasiocal
         $this->b = $b;
         $this->d = $d;
         return $this->checkopration($c);
+    }
+
+
+    function future($oprator)
+    {
+        switch($oprator)
+        {
+
+            case 'fv':
+            $data =  pow(1.075,$this->a);
+            $bagi = $this->b /$data;
+            return $bagi / $this->d;
+            break;
+
+        }
+    }
+
+    function hitungfv($a, $b, $d, $c)
+    {
+        $this->a = $a;
+        $this->b = $b;
+        $this->d = $d;
+        return $this->future($c);
     }
 }
 

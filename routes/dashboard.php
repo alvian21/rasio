@@ -8,12 +8,16 @@ Route::get('/insta','DashboardController@instagram');
 Route::get('/test','DashboardController@test');
 Route::post('/test','DashboardController@test')->name('test');
 Route::get('/mandiri','DashboardController@mandiri');
+Route::get('/coba','DashboardController@editdata');
+Route::get('/tanggal','DashboardController@tanggal');
+Route::post('/tanggal','DashboardController@postanggal')->name('post');
 
     Route::group([
         'prefix'        => 'admin',
         'middleware'    => 'auth'
 
     ], function () {
+        Route::view('/laporan', 'dashboard.laporan.laporan');
         Route::post('/fetchdata','DashboardController@fetchdata')->name('fetch');
         Route::get('/delete','DashboardController@deletedata')->name('delete');
         Route::post('/newdata','DashboardController@insertdata')->name('addnew');
