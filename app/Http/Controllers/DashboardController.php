@@ -242,9 +242,14 @@ class DashboardController extends Controller
         $result = '';
         $data = new rasiocal;
         $tipe = $request->get('tipe');
-        if($tipe == 'Rasio Lancar' || $tipe == 'Cakupan Bunga' || $tipe == 'Utang Terhadap Ekuitas' || $tipe == 'Utang Terhadap Total Aset'){
+        if($tipe == 'Rasio Lancar' || $tipe == 'Cakupan Bunga' || $tipe == 'Utang Terhadap Ekuitas' || $tipe == 'Utang Terhadap Total Aset' ||
+            $tipe == 'Rasio Kas atas Aktiva Lancar' || $tipe == 'Rasio Kas atas Hutang Lancar' ||
+            $tipe == 'Rasio Aktiva Lancar dan Total Aktiva' || $tipe == 'Margin Laba' || $tipe == 'Return on Asset' || $tipe == 'Return On Investment' ||
+            $tipe == 'Return on Total Asset' || $tipe == 'Basic Earning Power' || $tipe == 'Earning Per Share' || $tipe == 'Contribution Margin' ||
+            $tipe == 'Rasio Rentabilitas' || $tipe == 'Inventori Turn Over' || $tipe == 'Receivable Turn Over' || $tipe == 'Fixed Asset Turn Over' || $tipe == 'Total Asset Turn Over' || $tipe == 'Periode Penagihan Piutang')
+            {
             $result = $data->getresult($request->get('data1'),$request->get('data2'),$request->get('tipe'));
-        }elseif($request->get('tipe') == 'Rasio Cepat'){
+        }elseif($request->get('tipe') == 'Rasio Cepat' || $tipe == 'Aktiva Lancar atas Total Hutang'){
             $result = $data->rasiocepat($request->get('data1'),$request->get('data2'),$request->get('tipe'),$request->get('data3'));
         }
 

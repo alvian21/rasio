@@ -20,6 +20,19 @@ class rasiocal
             case 'Rasio Kas atas Hutang Lancar':
             case 'Rasio Kas atas Aktiva Lancar':
             case 'Rasio Aktiva Lancar dan Total Aktiva':
+            case 'Margin Laba':
+            case 'Return on Asset':
+            case 'Return On Investment':
+            case 'Return on Total Asset':
+            case 'Basic Earning Power':
+            case 'Earning Per Share':
+            case 'Contribution Margin':
+            case 'Rasio Rentabilitas':
+            case 'Inventori Turn Over':
+            case 'Receivable Turn Over':
+            case 'Fixed Asset Turn Over':
+            case 'Total Asset Turn Over':
+            case 'Periode Penagihan Piutang':
             return $this->a / $this->b;
             break;
 
