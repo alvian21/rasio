@@ -18,11 +18,17 @@ class rasiocal
             case 'Rasio Lancar':
             case 'Rasio Kas':
             case 'Rasio Kas atas Hutang Lancar':
+            case 'Rasio Kas atas Aktiva Lancar':
+            case 'Rasio Aktiva Lancar dan Total Aktiva':
             return $this->a / $this->b;
             break;
 
             case 'Rasio Cepat':
             return ($this->a - $this->d)/$this->b;
+            break;
+
+            case 'Aktiva Lancar atas Total Hutang':
+            return $this->a / ($this->b + $this->d);
             break;
 
         }
