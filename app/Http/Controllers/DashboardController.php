@@ -18,8 +18,26 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $data = Data::all()->where('tipe_rasio','Rasio Lancar');
+        $rasiocepat = Data::all()->where('tipe_rasio','Rasio Cepat');
+        $rasio = Rasio::all();
+        $array = [];
+        $hasil = [];
 
-        return view('dashboard.dashboard');
+        foreach($data as $row){
+            $array[] = $row->perusahaan;
+            $hasil[] = $row->hasil;
+        }
+
+        $a = [];
+        $b = [];
+        foreach($rasiocepat as $cepat)
+        {
+            $a[] = $cepat->perusahaan;
+            $b[]= $cepat->hasil;
+        }
+        return view('dashboard.dashboard',['array'=>$array,'hasil'=>$hasil,
+        'row'=>$row,'rasio'=>$rasio,'a'=>$a,'b'=>$b,'cepat'=>$cepat]);
     }
 
     /**
@@ -299,7 +317,7 @@ class DashboardController extends Controller
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                               <button class="dropdown-item editdataku"  data-id="'.$data->id.'">Edit</button>
                               <button class="dropdown-item delete"  data-id="'.$data->id.'">Delete</button>
-                              <button class="dropdown-item laporan"  data-id="'.$data->id.'">Laporan</button>
+                              <button class="dropdown-item laporan"  data-id="'.$data->id.'" >Laporan</button>
                             </div>
                           </div>
                         </td>
@@ -332,7 +350,7 @@ class DashboardController extends Controller
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                   <button class="dropdown-item editdataku"  data-id="'.$row->id.'">Edit</button>
                   <button class="dropdown-item delete"  data-id="'.$row->id.'">Delete</button>
-                  <button class="dropdown-item laporan"  data-id="'.$row->id.'">Laporan</button>
+                  <button class="dropdown-item laporan"  data-id="'.$row->id.'" >Laporan</button>
                 </div>
               </div>
             </td>
@@ -376,7 +394,7 @@ class DashboardController extends Controller
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                   <button class="dropdown-item editdataku"  data-id="'.$row->id.'">Edit</button>
                   <button class="dropdown-item delete"  data-id="'.$row->id.'">Delete</button>
-                  <button class="dropdown-item laporan"  data-id="'.$row->id.'">Laporan</button>
+                  <button class="dropdown-item laporan"  data-id="'.$row->id.'" >Laporan</button>
                 </div>
               </div>
             </td>
@@ -478,4 +496,13 @@ class DashboardController extends Controller
             echo $data;
         }
     }
+
+    public function laporan($id)
+    {
+        $data = Data::find($id);
+
+        return view('dashboard.laporan.index',['data'=>$data]);
+    }
+
+
 }

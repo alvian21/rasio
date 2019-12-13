@@ -581,3 +581,9 @@ var data = $tr.children('td').map(function(){
         $('#hasiledit').val(data[3]);
 
 });
+
+
+$(document).on('click','.laporan', function(){
+    var id = $(this).data('id');
+        window.location.href = '/admin/'+id+'/laporan';
+});

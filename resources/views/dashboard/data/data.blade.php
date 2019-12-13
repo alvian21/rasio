@@ -220,8 +220,8 @@
                                                                     <label class="my-1 mr-2" for="tipe_perusahaan">Pilih Perusahaan</label>
                                                                     <select class="custom-select my-1 mr-sm-2 action" id="tipe_perusahaan" name="tipe_perusahaan">
                                                                       <option value="Choose">Choose</option>
-                                                                      <option value="BBCA">BCA</option>
-                                                                      <option value="BBRI">BRI</option>
+                                                                      <option value="BCA">BCA</option>
+                                                                      <option value="BRI">BRI</option>
                                                                       <option value="Mandiri">Mandiri</option>
 
                                                                     </select>

@@ -18,7 +18,10 @@ class CreateDataTable extends Migration
             $table->string('perusahaan');
             $table->string('rasio');
             $table->string('tipe_rasio');
-            $table->string('hasil');
+            $table->integer('hasil');
+            $table->string('data1')->nullable();
+            $table->string('data2')->nullable();
+            $table->string('data3')->nullable();
             $table->timestamps();
         });
     }
