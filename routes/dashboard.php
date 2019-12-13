@@ -18,6 +18,7 @@ Route::post('/tanggal','DashboardController@postanggal')->name('post');
 
     ], function () {
         Route::view('/laporan', 'dashboard.laporan.laporan');
+        Route::get('/tesdata','DashboardController@getData');
         Route::post('/fetchdata','DashboardController@fetchdata')->name('fetch');
         Route::get('/delete','DashboardController@deletedata')->name('delete');
         Route::post('/newdata','DashboardController@insertdata')->name('addnew');

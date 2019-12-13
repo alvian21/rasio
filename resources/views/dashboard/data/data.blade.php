@@ -190,7 +190,7 @@
             </div>
           </div>
         </div>
-     
+
     </div>
     <div class="row mt-5">
             <div class="col-xl-10 mb-5 mb-xl-0" style="margin: 0 auto; float: none; ">
@@ -216,7 +216,17 @@
                                                   {{method_field('POST')}}
                                                     <meta name="csrf-token" content="{{ csrf_token() }}">
                                                     <div class="row">
-                                                            <div class="col-md-6">
+                                                         <div class="col-md-4">
+                                                                    <label class="my-1 mr-2" for="tipe_perusahaan">Pilih Perusahaan</label>
+                                                                    <select class="custom-select my-1 mr-sm-2 action" id="tipe_perusahaan" name="tipe_perusahaan">
+                                                                      <option value="Choose">Choose</option>
+                                                                      <option value="BBCA">BCA</option>
+                                                                      <option value="BBRI">BRI</option>
+                                                                      <option value="Mandiri">Mandiri</option>
+
+                                                                    </select>
+                                                            </div>
+                                                            <div class="col-md-4">
                                                                     <label class="my-1 mr-2" for="rasio">Pilih Rasio</label>
                                                                     <select class="custom-select my-1 mr-sm-2 action" id="rasio" name="rasio">
                                                                       <option value="rasio" selected>Choose...</option>
@@ -226,7 +236,7 @@
                                                                         @endforeach
                                                                     </select>
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <div class="col-md-4">
                                                                     <label class="my-1 mr-2" for="tipe">Tipe Rasio</label>
                                                                     <select class="custom-select my-1 mr-sm-2 action" id="tipe" name="tipe">
                                                                       <option value="tipe">Tipe</option>

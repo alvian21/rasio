@@ -249,8 +249,26 @@ class DashboardController extends Controller
             $tipe == 'Rasio Rentabilitas' || $tipe == 'Inventori Turn Over' || $tipe == 'Receivable Turn Over' || $tipe == 'Fixed Asset Turn Over' || $tipe == 'Total Asset Turn Over' || $tipe == 'Periode Penagihan Piutang')
             {
             $result = $data->getresult($request->get('data1'),$request->get('data2'),$request->get('tipe'));
+
+            $save = new Data;
+            $save->perusahaan = $request->get('perusahaan');
+            $save->rasio = $request->get('rasio');
+            $save->tipe_rasio = $request->get('tipe');
+            $save->hasil = $result;
+            $save->data1 = json_encode($request->get('label1'));
+            $save->data2 = json_encode($request->get('label2'));
+            $save->save();
         }elseif($request->get('tipe') == 'Rasio Cepat' || $tipe == 'Aktiva Lancar atas Total Hutang'){
             $result = $data->rasiocepat($request->get('data1'),$request->get('data2'),$request->get('tipe'),$request->get('data3'));
+            $save = new Data;
+            $save->perusahaan = $request->get('perusahaan');
+            $save->rasio = $request->get('rasio');
+            $save->tipe_rasio = $request->get('tipe');
+            $save->hasil = $result;
+            $save->data1 = json_encode($request->get('label1'));
+            $save->data2 = json_encode($request->get('label2'));
+            $save->data3 = json_encode($request->get('label3'));
+            $save->save();
         }
 
         echo $result;
@@ -281,6 +299,7 @@ class DashboardController extends Controller
                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                               <button class="dropdown-item editdataku"  data-id="'.$data->id.'">Edit</button>
                               <button class="dropdown-item delete"  data-id="'.$data->id.'">Delete</button>
+                              <button class="dropdown-item laporan"  data-id="'.$data->id.'">Laporan</button>
                             </div>
                           </div>
                         </td>
@@ -313,6 +332,7 @@ class DashboardController extends Controller
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                   <button class="dropdown-item editdataku"  data-id="'.$row->id.'">Edit</button>
                   <button class="dropdown-item delete"  data-id="'.$row->id.'">Delete</button>
+                  <button class="dropdown-item laporan"  data-id="'.$row->id.'">Laporan</button>
                 </div>
               </div>
             </td>
@@ -356,6 +376,7 @@ class DashboardController extends Controller
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                   <button class="dropdown-item editdataku"  data-id="'.$row->id.'">Edit</button>
                   <button class="dropdown-item delete"  data-id="'.$row->id.'">Delete</button>
+                  <button class="dropdown-item laporan"  data-id="'.$row->id.'">Laporan</button>
                 </div>
               </div>
             </td>
@@ -445,5 +466,16 @@ class DashboardController extends Controller
 
 
 
+    }
+
+
+    public function getData()
+    {
+        $data = Data::all();
+        foreach($data as $row ){
+            $row = $row->data1;
+            $data = json_decode($row)->tipe;
+            echo $data;
+        }
     }
 }

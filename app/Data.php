@@ -8,5 +8,5 @@ class Data extends Model
 {
     //
 
-    protected $fillable = ['perusahaan','rasio','tipe_rasio','hasil'];
+    protected $fillable = ['perusahaan','rasio','tipe_rasio','hasil','data1','data2','data3'];
 }
