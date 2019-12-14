@@ -400,12 +400,7 @@ class DashboardController extends Controller
             </td>
             </tr>';
         }
-
-
-
          echo $new;
-
-
     }
 
 

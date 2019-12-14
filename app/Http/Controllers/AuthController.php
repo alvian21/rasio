@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Cookie;
+use Illuminate\Http\Response;
 
 class AuthController extends Controller
 {
@@ -105,4 +107,17 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/')->with('success','success logout');
     }
+
+    public function setCookie()
+    {
+        $minutes = 1;
+        $response = new Response('Set Cookie');
+        $response->withCookie(cookie('name', 'MyValue', $minutes));
+        return $response;
+    }
+
+    public function getCookie(Request $request){
+        $value = $request->cookie('name');
+        echo $value;
+     }
 }

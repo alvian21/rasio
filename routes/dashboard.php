@@ -4,6 +4,8 @@ Route::get('/register','AuthController@register')->name('register');
 Route::post('/register','AuthController@postregister')->name('postregister');
 Route::get('/','AuthController@index')->name('login');
 Route::post('/','AuthController@login')->name('postlogin');
+Route::get('/cookie','AuthController@getCookie');
+Route::get('/cookie/set','AuthController@setCookie');
 Route::get('/insta','DashboardController@instagram');
 Route::get('/test','DashboardController@test');
 Route::post('/test','DashboardController@test')->name('test');
