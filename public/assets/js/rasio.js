@@ -504,7 +504,7 @@ $(document).ready(function(){
                     'label2':{"data":data2, "tipe":label2},
                     'label3':{"data":data3, "tipe":label3},
             };
-
+            console.log(dataku);
         if(tipe == 'tipe' || rasio == 'rasio'){
             swal("Fail", "Please select the option", "error");
         }else if(data1 == '' || data2 == '' || data3 == ''){

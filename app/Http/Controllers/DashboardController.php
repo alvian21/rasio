@@ -465,12 +465,6 @@ class DashboardController extends Controller
         $hitung = new rasiocal;
         $tipe = $request->get('hitung');
 
-        // $pangkat = pow(1.055, $tahun);
-        // $bagi = $request->get('future') / $pangkat;
-        // $result = $bagi / $bulan;
-        //   dd(pow(1.075,$tahun));
-
-
         if($tipe){
             $result = $hitung->hitungfv($tahun,$request->get('future'),$diff, $tipe);
             echo $result;
