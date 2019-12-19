@@ -377,8 +377,7 @@ class DashboardController extends Controller
     public function fetchdata()
     {
 
-        $data = Data::all();
-
+        $data = Data::paginate(10);
         $new ='';
         foreach($data as $row){
                 $new .= '<tr>
@@ -493,5 +492,14 @@ class DashboardController extends Controller
         return view('dashboard.laporan.index',['data'=>$data]);
     }
 
+
+    public function indexperhitungan(Request $request)
+    {
+
+        $new = $this->showdata();
+        $data = Rasio::select('name')->groupBy('name')->get();
+        $add =  Rasio::select('name')->groupBy('name')->get();
+        return view('dashboard.perhitungan.data',['data'=>$data,'new'=>$new,'add'=>$add]);
+    }
 
 }

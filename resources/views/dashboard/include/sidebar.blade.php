@@ -97,6 +97,11 @@
               <i class="ni ni-bullet-list-67 text-red"></i> Data
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{ Request::path() ==  'admin/perhitungan' ? 'active' : ''  }}" href="{{route('perhitungan')}}">
+              <i class="ni ni-bullet-list-67 text-green"></i> Perhitungan
+            </a>
+          </li>
           {{-- <li class="nav-item">
             <a class="nav-link " href="./examples/maps.html">
               <i class="ni ni-pin-3 text-orange"></i> Maps

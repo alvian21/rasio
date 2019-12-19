@@ -19,6 +19,7 @@ Route::post('/tanggal','DashboardController@postanggal')->name('post');
         'middleware'    => 'auth'
 
     ], function () {
+        Route::get('/perhitungan','DashboardController@indexperhitungan')->name('perhitungan');
         Route::get('/{id}/laporan','DashboardController@laporan')->name('laporan');
         Route::get('/tesdata','DashboardController@getData');
         Route::post('/fetchdata','DashboardController@fetchdata')->name('fetch');
