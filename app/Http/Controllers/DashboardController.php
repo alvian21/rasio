@@ -18,26 +18,68 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = Data::all()->where('tipe_rasio','Rasio Lancar');
-        $rasiocepat = Data::all()->where('tipe_rasio','Rasio Cepat');
+        // $data = Data::all()->where('tipe_rasio','Rasio Lancar');
+        // $rasiocepat = Data::all();
         $rasio = Rasio::all();
-        $array = [];
-        $hasil = [];
-
-        foreach($data as $row){
-            $array[] = $row->perusahaan;
-            $hasil[] = $row->hasil;
-        }
+        $coba = Data::select('tipe_rasio')->groupBy('tipe_rasio')->get();
 
         $a = [];
         $b = [];
-        foreach($rasiocepat as $cepat)
-        {
-            $a[] = $cepat->perusahaan;
-            $b[]= $cepat->hasil;
+        $rasiocepat = [];
+
+        // foreach($coba as $result => $saya)
+        // {
+        //         $data = Data::all()->where('tipe_rasio',$saya->tipe_rasio);
+        //         $a[$result] = array($saya->tipe_rasio => $data);
+        // }
+
+        // foreach($a as $row){
+        //    foreach ($row as $value) {
+        //     dd(group_by('tipe_rasio',$value));
+        //    }
+        // }
+
+        $tipe = Data::all();
+            $x = [];
+            $json = [];
+
+            $aku = [];
+        foreach ($tipe as $key => $value) {
+            $item = $value->tipe_rasio;
+            // $b[$item] = $item;
+            // $saya = Data::all()->where('tipe_rasio',$item);
+
+            // print_r($value->hasil);
+
+
+
+            $json[] = [$item=>$value->hasil];
+            $aku[] = $value->tipe_rasio;
+            $x[$value->tipe_rasio][] = array('hasil' => $value->hasil,'perusahaan'=>$value->perusahaan,'tipe'=>$value->tipe_rasio);
+
         }
-        return view('dashboard.dashboard',['array'=>$array,'hasil'=>$hasil,
-        'row'=>$row,'rasio'=>$rasio,'a'=>$a,'b'=>$b,'cepat'=>$cepat]);
+
+
+        // foreach($json as $shu){
+        //     print_r($shu);
+        // }
+
+
+        // dd(array_unique($json, SORT_REGULAR));
+    //    foreach($saya as $row){
+
+    //    }
+
+
+        // $array = [];
+        // $hasil = [];
+
+        // foreach($data as $row){
+        //     $array[] = $row->perusahaan;
+        //     $hasil[] = $row->hasil;
+        // }
+
+        return view('dashboard.dashboard',['rasio'=>$rasio,'coba'=>$coba,'x'=>$x]);
     }
 
     /**
