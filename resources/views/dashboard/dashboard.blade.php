@@ -1,3 +1,4 @@
+
 @extends('dashboard.master')
 
 @section('content')
@@ -47,42 +48,32 @@
   </div>
   <div class="container-fluid mt--7">
     <div class="row">
+        @foreach ($coba as $row)
+        <?php $data = str_replace(' ','_',$row->tipe_rasio); ?>
+        <div class="col-md-6">
+            <div class="card shadow">
+              <div class="card-header bg-transparent">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h2 class="mb-0">{{ $row->tipe_rasio }}</h2>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <!-- Chart -->
+                <div id="{{ $data }}">
 
-      <div class="col-md-6">
-        <div class="card shadow">
-          <div class="card-header bg-transparent">
-            <div class="row align-items-center">
-              <div class="col">
-                <h2 class="mb-0">Grafik Rasio Lancar</h2>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="card-body">
-            <!-- Chart -->
-            <div id="chartRasio">
-
-            </div>
-          </div>
         </div>
-      </div>
 
-      <div class="col-md-6">
-        <div class="card shadow">
-          <div class="card-header bg-transparent">
-            <div class="row align-items-center">
-              <div class="col">
-                <h2 class="mb-0">Grafik Rasio Cepat</h2>
-              </div>
+        @if($loop->iteration % 2 == 0)
             </div>
-          </div>
-          <div class="card-body">
-            <!-- Chart -->
-            <div id="chartRasioCepat">
-
-            </div>
-          </div>
-        </div>
-      </div>
+            <br>
+            <div class="row">
+        @endif
+        @endforeach
     </div>
 
     <!-- Footer -->
@@ -118,8 +109,17 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 
 <script>
+@foreach($x as $row)
+@php
+$z = [];
+foreach($row as $y){
+    $z[] = $y['tipe'];
+}
+$array = array_unique($z,SORT_REGULAR);
+$array = str_replace(' ','_',$array);
+@endphp
 
-Highcharts.chart('chartRasio', {
+Highcharts.chart(@php print_r($array[0]); @endphp, {
     chart: {
         type: 'column'
     },
@@ -127,7 +127,7 @@ Highcharts.chart('chartRasio', {
         text: 'Perusahaan'
     },
     xAxis: {
-        categories: {!!json_encode($array)!!},
+        categories: [@foreach($row as $data)@php $hasil = "'".implode('',(array)$data["perusahaan"])."',"; echo $hasil @endphp@endforeach] ,
         crosshair: true
     },
     yAxis: {
@@ -151,50 +151,51 @@ Highcharts.chart('chartRasio', {
         }
     },
     series: [{
-        name: {!!json_encode($row->tipe_rasio)!!},
-        data: {!!json_encode($hasil)!!}
-
+        name:  'Rasio',
+        data:  [@foreach($row as $data){!! str_replace('"','',json_encode($data["hasil"] .= ',')) !!}@endforeach]
     }, ]
 });
+@endforeach
 
 
 
-Highcharts.chart('chartRasioCepat', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Perusahaan'
-    },
-    xAxis: {
-        categories: {!!json_encode($a)!!},
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Hasil'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: {!!json_encode($cepat->tipe_rasio)!!},
-        data: {!!json_encode($b)!!}
 
-    }, ]
-});
+// Highcharts.chart('chartRasioCepat', {
+//     chart: {
+//         type: 'column'
+//     },
+//     title: {
+//         text: 'Perusahaan'
+//     },
+//     xAxis: {
+//         categories: ,
+//         crosshair: true
+//     },
+//     yAxis: {
+//         min: 0,
+//         title: {
+//             text: 'Hasil'
+//         }
+//     },
+//     tooltip: {
+//         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+//         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+//             '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+//         footerFormat: '</table>',
+//         shared: true,
+//         useHTML: true
+//     },
+//     plotOptions: {
+//         column: {
+//             pointPadding: 0.2,
+//             borderWidth: 0
+//         }
+//     },
+//     series: [{
+//         name: ,
+//         data:
+
+//     }, ]
+// });
 </script>
 @endsection
