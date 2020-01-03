@@ -88,6 +88,9 @@ class AuthController extends Controller
             $data = $user->email;
             $url = 'https://api.trumail.io/v2/lookups/json?email='.$data.'';
             $url = $this->apiEmail($url);
+            if(strpos(json_encode($url),'No response received from mail server')){
+                return back()->with('fail','please use real email address');
+            }
             $url = $url['deliverable'];
             if($url == 'true'){
                 $user->password = Hash::make($request->get('password'));
