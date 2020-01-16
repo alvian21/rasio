@@ -147,7 +147,7 @@ Highcharts.chart(@php print_r($array[0]); @endphp, {
     plotOptions: {
         column: {
             pointPadding: 0.2,
-            borderWidth: 0
+            borderWidth: 0,
         }
     },
     series: [{

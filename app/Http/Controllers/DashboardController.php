@@ -308,6 +308,18 @@ class DashboardController extends Controller
             $tipe == 'Return on Total Asset' || $tipe == 'Basic Earning Power' || $tipe == 'Earning Per Share' || $tipe == 'Contribution Margin' ||
             $tipe == 'Rasio Rentabilitas' || $tipe == 'Inventori Turn Over' || $tipe == 'Receivable Turn Over' || $tipe == 'Fixed Asset Turn Over' || $tipe == 'Total Asset Turn Over' || $tipe == 'Periode Penagihan Piutang')
             {
+                    if($tipe == 'Rasio Lancar'){
+                        $desc = 'Semakin tinggi angka rasio lancar, maka semakin besar kemampuan perusahaan untuk membayar liabilitas jangka pendeknya. Namun, rasio ini tidak memperhitungkan likuiditas setiap komponen aset sehingga bisa dianggap sebagai ukuran kasar dari likuiditas perusahaan';
+                    }elseif($tipe == 'Rasio Cepat'){
+                        $desc = 'Semakin Tinggi angka rasio cepat, maka semakin besar kemampuan perusahaan untuk membayar liabilitas jangka pendeknya. Rasio ini memberikan ukuran likuiditas yang lebih konservatif dibandingkan dengan rasio lancar karena mengeluarkan aset lancar yang paling tidak likuid yaitu persediaan';
+                    }elseif($tipe == 'Utang Terhadap Ekuitas'){
+                        $desc = 'Semakin Rendah rasio utang terhadapa ekuitas, semakin tinggi tingkat pendanaan perusahaan yang disediakan oleh pemegang saham. Rasio ini akan bergantung pada sifat bisnis dan arus kas. perusahaan dengan kas stabil biasanya memiliki rasio utang terhadap ekuitas yang lebih besar.';
+                    }elseif($tipe == 'Utang Terhadap Total Aset'){
+                        $desc = 'Semakin rendah rasio utang terhadap total asset, maka semakin rendah resiko keuangan yang dimiliki perusahaan. hal ini karena aset lebih banyak dibiayai dengan ekuitas jika dibandingkan dengan utang.
+                        ';
+                    }else{
+                        $desc = '';
+                    }
             $result = $data->getresult($request->get('data1'),$request->get('data2'),$request->get('tipe'));
 
             $save = new Data;
@@ -317,6 +329,7 @@ class DashboardController extends Controller
             $save->hasil = $result;
             $save->data1 = json_encode($request->get('label1'));
             $save->data2 = json_encode($request->get('label2'));
+            $save->description = $desc;
             $save->save();
         }elseif($request->get('tipe') == 'Rasio Cepat' || $tipe == 'Aktiva Lancar atas Total Hutang'){
             $result = $data->rasiocepat($request->get('data1'),$request->get('data2'),$request->get('tipe'),$request->get('data3'));

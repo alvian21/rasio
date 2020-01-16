@@ -22,6 +22,7 @@ class CreateDataTable extends Migration
             $table->string('data1')->nullable();
             $table->string('data2')->nullable();
             $table->string('data3')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

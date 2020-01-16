@@ -136,11 +136,27 @@
                     <td class="border-top-thin" style="padding-left:0;">
                     </td>
             </tr>
+            {{-- <tr>
+                <td class="report-subtotal text-left regular-text data-col-half" colspan="2">
+                    <h3><p style="font: italic;">{{$data->description}}</p>
+                    </h3>
+              </td> --}}
+            </tr>
                     </tbody>
-                    </table>
-                </div>
+                </table>
                 </div>
             </div>
+            <div class="container break-text">
+                <div class="row">
+                  <div class="col-xs-4">
+
+                    <h3><i style="font: italic; color:#404040">{{$data->description}}</i> </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
             </div>
     </section>
     <!-- Footer -->
