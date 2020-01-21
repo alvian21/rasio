@@ -57,19 +57,6 @@ class AuthController extends Controller
         return json_decode($result,true);
     }
 
-    // public function getValid()
-    // {
-    //     $data = 'alvian@gmhhail.com';
-    //     $url = 'https://api.trumail.io/v2/lookups/json?email='.$data.'';
-    //     $url = $this->apiEmail($url);
-    //     $url = $url['deliverable'];
-    //     if($url == 'true'){
-    //         echo 'valid';
-    //     }else{
-    //         echo 'not valid';
-    //     }
-    // }
-
     public function postregister(Request $request)
     {
         $validator = Validator::make($request->all(), [
