@@ -58,7 +58,7 @@
       </div>
     </div>
   </div>
-   
+
 
 <!-- EDit Modal -->
 <div class="modal fade" id="editdata" tabindex="-1" role="dialog" aria-labelledby="editdataLabel" aria-hidden="true">
@@ -115,6 +115,7 @@
                                                       <option value="Choose" selected>Choose...</option>
                                                       <option value="BBCA">BCA</option>
                                                       <option value="BBRI">BRI</option>
+                                                      <option value="BMRI">Mandiri</option>
                                                     </select>
                                             </div>
                                             <div class="col-md-4">

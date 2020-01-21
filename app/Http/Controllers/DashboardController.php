@@ -88,9 +88,9 @@ class DashboardController extends Controller
 
     public function getValid(Request $request)
     {
-        $data = $request->get('data');
-        $tahun = $request->get('tahun');
-        $periode = $request->get('periode');
+        $data = 'BMRI';
+        $tahun = '2018';
+        $periode = 'audit';
         $url = 'https://www.idx.co.id/umbraco/Surface/ListedCompany/GetFinancialReport?indexFrom=0&pageSize=10&year='.$tahun.'&reportType=rdf&periode='.$periode.'&kodeEmiten='.$data.'';
         $url = $this->api($url);
         if($data == 'BBCA'){
@@ -126,6 +126,18 @@ class DashboardController extends Controller
                 $url = $url['Results'][0]['Attachments'][2]['File_Path'];
                }
 
+            }
+        }elseif($data == 'BMRI'){
+            if($tahun == '2019'){
+                if($periode == 'tw1'){
+                    $url = $url['Results'][0]['Attachments'][0]['File_Path'];
+                }elseif($periode == 'tw2'){
+                    $url = $url['Results'][0]['Attachments'][3]['File_Path'];
+                }elseif($periode == 'tw3'){
+                    $url = $url['Results'][0]['Attachments'][2]['File_Path'];
+                }
+            }elseif($tahun == '2018'){
+                $url = $url['Results'][0]['Attachments'][0]['File_Path'];
             }
         }
 
