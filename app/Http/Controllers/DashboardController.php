@@ -18,27 +18,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // $data = Data::all()->where('tipe_rasio','Rasio Lancar');
-        // $rasiocepat = Data::all();
         $rasio = Rasio::all();
         $coba = Data::select('tipe_rasio')->groupBy('tipe_rasio')->get();
 
         $a = [];
         $b = [];
         $rasiocepat = [];
-
-        // foreach($coba as $result => $saya)
-        // {
-        //         $data = Data::all()->where('tipe_rasio',$saya->tipe_rasio);
-        //         $a[$result] = array($saya->tipe_rasio => $data);
-        // }
-
-        // foreach($a as $row){
-        //    foreach ($row as $value) {
-        //     dd(group_by('tipe_rasio',$value));
-        //    }
-        // }
-
         $tipe = Data::all();
             $x = [];
             $json = [];
@@ -46,106 +31,13 @@ class DashboardController extends Controller
             $aku = [];
         foreach ($tipe as $key => $value) {
             $item = $value->tipe_rasio;
-            // $b[$item] = $item;
-            // $saya = Data::all()->where('tipe_rasio',$item);
-
-            // print_r($value->hasil);
-
-
-
             $json[] = [$item=>$value->hasil];
             $aku[] = $value->tipe_rasio;
             $x[$value->tipe_rasio][] = array('hasil' => $value->hasil,'perusahaan'=>$value->perusahaan,'tipe'=>$value->tipe_rasio);
 
         }
 
-
-        // foreach($json as $shu){
-        //     print_r($shu);
-        // }
-
-
-        // dd(array_unique($json, SORT_REGULAR));
-    //    foreach($saya as $row){
-
-    //    }
-
-
-        // $array = [];
-        // $hasil = [];
-
-        // foreach($data as $row){
-        //     $array[] = $row->perusahaan;
-        //     $hasil[] = $row->hasil;
-        // }
-
         return view('dashboard.dashboard',['rasio'=>$rasio,'coba'=>$coba,'x'=>$x]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function indexdata(Request $request)
@@ -556,5 +448,4 @@ class DashboardController extends Controller
         $add =  Rasio::select('name')->groupBy('name')->get();
         return view('dashboard.perhitungan.data',['data'=>$data,'new'=>$new,'add'=>$add]);
     }
-
 }
