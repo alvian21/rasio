@@ -400,10 +400,6 @@ class DashboardController extends Controller
         echo $html;
     }
 
-    public function tanggal()
-    {
-        return view('date');
-    }
 
     public function postanggal(Request $request)
     {
@@ -456,5 +452,71 @@ class DashboardController extends Controller
         $data = Rasio::select('name')->groupBy('name')->get();
         $add =  Rasio::select('name')->groupBy('name')->get();
         return view('dashboard.perhitungan.data',['data'=>$data,'new'=>$new,'add'=>$add]);
+    }
+
+    public function piechart()
+    {
+        $rasio = Rasio::all();
+        $coba = Data::select('tipe_rasio')->groupBy('tipe_rasio')->get();
+        $tipe = Data::all();
+        $x = [];
+        $json = [];
+
+        $aku = [];
+    foreach ($tipe as $key => $value) {
+        $item = $value->tipe_rasio;
+        $json[] = [$item=>$value->hasil];
+        $aku[] = $value->tipe_rasio;
+        $x[$value->tipe_rasio][] = array('hasil' => $value->hasil,'perusahaan'=>$value->perusahaan,'tipe'=>$value->tipe_rasio);
+
+    }
+        return view('dashboard.grafik.index',['rasio'=>$rasio,'coba'=>$coba,'x'=>$x]);
+    }
+
+    public function piejson()
+    {
+        $rasio = Rasio::all();
+        $coba = Data::select('tipe_rasio')->groupBy('tipe_rasio')->get();
+
+        $a = [];
+        $b = [];
+        $rasiocepat = [];
+        $tipe = Data::all();
+            $x = [];
+            $json = [];
+
+            $aku = [];
+        foreach ($tipe as $key => $value) {
+            $item = $value->tipe_rasio;
+            $json[] = [$item=>$value->hasil];
+            $aku[] = $value->tipe_rasio;
+            $x[$value->tipe_rasio][] = array('hasil' => $value->hasil,'perusahaan'=>$value->perusahaan,'tipe'=>$value->tipe_rasio);
+
+        }
+        return response()->json(['coba'=>$coba,'x'=>$x]);
+    }
+
+    public function testarray()
+    {
+        $tipe = Data::all();
+        $x = [];
+        $json = [];
+
+        $aku = [];
+    foreach ($tipe as $key => $value) {
+        $item = $value->tipe_rasio;
+        $json[] = [$item=>$value->hasil];
+        $aku[] = $value->tipe_rasio;
+        $x[][$value->tipe_rasio] = array('hasil' => $value->hasil,'perusahaan'=>$value->perusahaan,'tipe'=>$value->tipe_rasio);
+
+    }
+
+    echo(json_encode($x));
+
+
+
+
+
+
     }
 }
