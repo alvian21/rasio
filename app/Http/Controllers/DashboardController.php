@@ -7,6 +7,7 @@ use App\Rasio;
 use App\CustomClass\calculator;
 use App\CustomClass\rasiocal;
 use App\Data;
+use App\Piechart;
 use DateTime;
 
 class DashboardController extends Controller
@@ -235,6 +236,8 @@ class DashboardController extends Controller
             $save->data2 = json_encode($request->get('label2'));
             $save->description = $desc;
             $save->save();
+
+
         }elseif($request->get('tipe') == 'Rasio Cepat' || $tipe == 'Aktiva Lancar atas Total Hutang'){
             $result = $data->rasiocepat($request->get('data1'),$request->get('data2'),$request->get('tipe'),$request->get('data3'));
             $save = new Data;
@@ -246,6 +249,26 @@ class DashboardController extends Controller
             $save->data2 = json_encode($request->get('label2'));
             $save->data3 = json_encode($request->get('label3'));
             $save->save();
+        }
+
+        $data = Data::where('tipe_rasio',$tipe)->get();
+        $pie = Piechart::where('type',$tipe)->first();
+        $arr = [];
+            foreach($data as $row){
+                $arr[] = array('name'=>$row->perusahaan,'y'=>$row->hasil);
+            }
+
+        $hasil = json_encode($arr);
+
+        if(empty($pie)){
+            $new = new Piechart;
+            $new->type = $tipe;
+            $new->data = $hasil;
+            $new->save();
+        }else{
+            $old = Piechart::where('type',$tipe)->first();
+            $old->data = $hasil;
+            $old->save();
         }
 
         echo $result;
@@ -328,7 +351,19 @@ class DashboardController extends Controller
     {
         if($request->get('delete')){
             $data = Data::find($request->get('id'));
+            $all = Data::where('tipe_rasio',$data->tipe_rasio)->get();
             $data->delete();
+            $arr = [];
+
+            foreach($all as $row){
+                $arr[] = array('name'=>$row->perusahaan,'y'=>$row->hasil);
+            }
+
+            $hasil = json_encode($arr);
+            $pie = Piechart::where('type',$data->tipe_rasio)->first();
+            $pie->data = $hasil;
+            $pie->save();
+
         }
 
     }
@@ -459,17 +494,8 @@ class DashboardController extends Controller
         $rasio = Rasio::all();
         $coba = Data::select('tipe_rasio')->groupBy('tipe_rasio')->get();
         $tipe = Data::all();
-        $x = [];
-        $json = [];
 
-        $aku = [];
-    foreach ($tipe as $key => $value) {
-        $item = $value->tipe_rasio;
-        $json[] = [$item=>$value->hasil];
-        $aku[] = $value->tipe_rasio;
-        $x[$value->tipe_rasio][] = array('hasil' => $value->hasil,'perusahaan'=>$value->perusahaan,'tipe'=>$value->tipe_rasio);
-
-    }
+        $x = Piechart::all();
         return view('dashboard.grafik.index',['rasio'=>$rasio,'coba'=>$coba,'x'=>$x]);
     }
 
@@ -503,20 +529,44 @@ class DashboardController extends Controller
         $json = [];
 
         $aku = [];
-    foreach ($tipe as $key => $value) {
-        $item = $value->tipe_rasio;
-        $json[] = [$item=>$value->hasil];
-        $aku[] = $value->tipe_rasio;
-        $x[][$value->tipe_rasio] = array('hasil' => $value->hasil,'perusahaan'=>$value->perusahaan,'tipe'=>$value->tipe_rasio);
+    // foreach ($tipe as $key => $value) {
+    //     $category = Data::select('tipe_rasio')->where('tipe_rasio',$tipe[$key])->groupBy('tipe_rasio')->get();
+    //     $y[$category] = $value;
+
+    //     array_push($x,$y);
+    // }
+
+
+    $coba = Data::select('tipe_rasio')->groupBy('tipe_rasio')->get();
+
+    foreach($coba as $key => $value){
+        $hasil = Data::where('tipe_rasio',$coba[$key]->tipe_rasio)->get();
+
+        $y[$value->tipe_rasio] = $hasil;
+        array_push($x,$y);
+    }
+
+    foreach($x as $saya){
+        dd($saya);
+    }
+
+
+
+
 
     }
 
-    echo(json_encode($x));
 
+    public function pie()
+    {
+        $data = Data::where('tipe_rasio','Utang Terhadap Ekuitas')->get();
+        $pie = Piechart::where('type','Utang Terhadap Ekuitas')->first();
+        $arr = [];
+      foreach($data as $row){
+        $arr[] = array('name'=>$row->perusahaan,'y'=>$row->hasil);
+      }
 
-
-
-
+      $hasil = json_encode($arr);
 
     }
 }

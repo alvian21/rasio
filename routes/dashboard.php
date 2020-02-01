@@ -19,7 +19,7 @@ Route::post('/tanggal','DashboardController@postanggal')->name('post');
         'middleware'    => 'auth'
 
     ], function () {
-        Route::get('/dashboard/testarray','DashboardController@testarray');
+        Route::get('/dashboard/pie','DashboardController@pie');
         Route::get('/dashboard/piejson','DashboardController@piejson');
         Route::get('/dashboard/piechart','DashboardController@piechart')->name('piechart');
         Route::get('/perhitungan','DashboardController@indexperhitungan')->name('perhitungan');

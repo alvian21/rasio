@@ -74,15 +74,11 @@
 @endphp
 @foreach($x as $row)
 @php
-$z = [];
-foreach($row as $y){
-    $z[] = $y['tipe'];
-}
-$array = array_unique($z,SORT_REGULAR);
-$array = str_replace(' ','_',$array);
+
+$array = str_replace(' ','_',$row->type);
 @endphp
 $(function() {
-  $(@php print_r($array[0]); @endphp).highcharts({
+  $(@php echo $array @endphp).highcharts({
     chart: {
       plotBackgroundColor: null,
       plotBorderWidth: null,
@@ -106,7 +102,7 @@ $(function() {
 
     series: [{
       colorByPoint: true,
-      data: @foreach($row as $key => $hasil) @php $arr[] = array('name'=>$hasil['perusahaan'],'y'=>$hasil['hasil']); @endphp @endforeach @php echo(json_encode($arr)); @endphp
+      data: @php echo $row->data @endphp
     }]
   });
 });
