@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Rasio;
 use App\CustomClass\calculator;
 use App\CustomClass\rasiocal;
+use Illuminate\Support\Facades\Auth;
 use App\Data;
 use App\Piechart;
 use DateTime;
@@ -228,6 +229,7 @@ class DashboardController extends Controller
             $result = $data->getresult($request->get('data1'),$request->get('data2'),$request->get('tipe'));
 
             $save = new Data;
+            $save->user_id = Auth::user()->id;
             $save->perusahaan = $request->get('perusahaan');
             $save->rasio = $request->get('rasio');
             $save->tipe_rasio = $request->get('tipe');
@@ -241,6 +243,7 @@ class DashboardController extends Controller
         }elseif($request->get('tipe') == 'Rasio Cepat' || $tipe == 'Aktiva Lancar atas Total Hutang'){
             $result = $data->rasiocepat($request->get('data1'),$request->get('data2'),$request->get('tipe'),$request->get('data3'));
             $save = new Data;
+            $save->user_id = Auth::user()->id;
             $save->perusahaan = $request->get('perusahaan');
             $save->rasio = $request->get('rasio');
             $save->tipe_rasio = $request->get('tipe');
@@ -262,6 +265,7 @@ class DashboardController extends Controller
 
         if(empty($pie)){
             $new = new Piechart;
+            $new->user_id = Auth::user()->id;
             $new->type = $tipe;
             $new->data = $hasil;
             $new->save();
@@ -313,8 +317,8 @@ class DashboardController extends Controller
 
     public function showdata()
     {
-
-        $data = Data::all();
+        $user_id = Auth::user()->id;
+        $data = Data::all()->where('user_id',$user_id);
 
         $new = '<tbody id="display_area">';
 
@@ -567,6 +571,25 @@ class DashboardController extends Controller
       }
 
       $hasil = json_encode($arr);
+
+    }
+
+    public function cari(Request $request)
+    {
+        $user = Auth::user()->id;
+        if($request->has('cari'))
+        {
+            $cari = Data::where('user_id',$user)->where(function($a) use ($request){
+                $a->where('tipe_rasio','LIKE','%'.$request->cari.'%')->orWhere('rasio','LIKE','%'.$request->cari.'%')->orWhere('perusahaan','LIKE','%'.$request->cari.'%');
+            })->get();
+
+
+
+            return view('dashboard.cari.index',['cari'=>$cari]);
+        }
+
+
+
 
     }
 }

@@ -31,7 +31,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Email" name="email" type="email">
+                  <input class="form-control" required placeholder="Email" name="email" type="email">
                 </div>
               </div>
               <div class="form-group">
@@ -39,7 +39,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                   </div>
-                  <input class="form-control" placeholder="Password" name="password" type="password">
+                  <input class="form-control" required placeholder="Password" name="password" type="password">
                 </div>
               </div>
               <div class="text-center">

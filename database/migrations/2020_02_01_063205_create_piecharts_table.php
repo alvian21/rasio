@@ -15,6 +15,8 @@ class CreatePiechartsTable extends Migration
     {
         Schema::create('piecharts', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('type');
             $table->string('data');
             $table->timestamps();

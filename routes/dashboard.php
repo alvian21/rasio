@@ -32,6 +32,7 @@ Route::post('/tanggal','DashboardController@postanggal')->name('post');
         Route::get('/fetch','DashboardController@fetchRasio');
         Route::post('/fetch','DashboardController@fetchRasio')->name('fetchRasio');
         Route::get('/test','DashboardController@test');
+        Route::get('/cari','DashboardController@cari')->name('cari');
         Route::get('/email','DashboardController@getValid');
         Route::get('/datavalid','DashboardController@getValid')->name('datavalid');
         Route::get('/data','DashboardController@indexdata')->name('data');

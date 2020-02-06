@@ -55,8 +55,8 @@
       <div class="container">
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              © 2019 Rasio
+            <div class="copyright text-center text-xl-left text-muted" >
+               <b><h3>© 2019 Rasio</h3></b>
             </div>
           </div>
 
