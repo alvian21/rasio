@@ -78,6 +78,11 @@
 $array = str_replace(' ','_',$row->type);
 @endphp
 $(function() {
+
+    Highcharts.setOptions({
+     colors: ['#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263',      '#6AF9C4']
+    });
+    var chart;
   $(@php echo $array @endphp).highcharts({
     chart: {
       plotBackgroundColor: null,

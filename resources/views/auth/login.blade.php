@@ -51,7 +51,7 @@
         <div class="row mt-3">
 
           <div class="col-12 text-right">
-          <a href="{{Route('register')}}" class="text-light"><small>Buat akun baru</small></a>
+          <a href="{{Route('register')}}" class="text-dark"><small>Buat akun baru</small></a>
           </div>
         </div>
       </div>
